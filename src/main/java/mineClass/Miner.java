@@ -1005,7 +1005,7 @@ public class Miner implements OptionHandler{
 
         int numOfLabeledInst = 0;
         int numOfUnlabeledInst = 0;
-        Random rand = new Random();
+        Random rand = new Random(123456);
        
         // for debugging purpose only, disable after debugging
         /*
