@@ -34,6 +34,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
     
     /* correlation statistics*/
     public ConfidenceStats confidenceStats = new ConfidenceStats();
+    public List<Datapoint> data;
 
     void Summary() //delete points
     {
@@ -54,7 +55,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
     }
                             
     /** Creates a new instance of ReascCtrl */
-    public void init(int mno, Cluster[] c, double[] prior, int lp) {
+    public void init(int mno, Cluster[] c, double[] prior, int lp, List<Datapoint> data) {
         
         //find number of labeled clusters
         int lb = 0;
@@ -74,6 +75,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
         Lp = lp;
         //Prior = new double[ReascCore.C];
         Prior = prior.clone();
+        this.data = data;
                
         Summary();     
         
@@ -86,7 +88,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
             this.C = data.numClasses();
         ReascCore ssc = new ReascCore(this.K, this.Labeledp, this.C);
         this.Data = data;
-        ssc.Data = new ArrayList();
+        ssc.Data = new ArrayList<Datapoint>();
         for(int i = 0; i < data.numInstances();  i ++)
         {
             Instance ins = data.instance(i);
@@ -97,7 +99,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
         //now build the clusters
         ssc.init();
         ssc.E_M();
-        init(0, ssc.Clusters, ssc.Prior, ssc.Lp);
+        init(0, ssc.Clusters, ssc.Prior, ssc.Lp, ssc.Data);
         mcClusters = this.getClusters();
         /*Constants.logger.debug("Clusters............");
         for(int i = 0; i < mcClusters.length; i ++)
@@ -349,6 +351,16 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
         }
 
         return clusters;
+  }
+
+  public List<Double> getKnownLabels() {
+        final List<Double> knownLabels = new ArrayList<>();
+        for (int i = 0; i < Dataseen.length; ++i) {
+            if (Dataseen[i]) {
+                knownLabels.add((double) i);
+            }
+        }
+        return knownLabels;
   }
     
     

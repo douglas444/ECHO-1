@@ -29,4 +29,8 @@ public class Minstances extends Instances{
     {
        return (Minstance)m_Instances.elementAt(index);
     }
+
+    public Object[] getM_Instances() {
+        return m_Instances.toArray();
+    }
 }

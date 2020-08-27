@@ -5,13 +5,20 @@ package mineClass;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import interceptor.ECHOOriginalInterceptor;
+import interceptor.context.ClusteredConceptContext;
+import reasc.ReascCtrl;
 import weka.core.*;
 import weka.classifiers.Classifier;
 import org.apache.log4j.*;
 import change_point_detection.CpdDP;
 
 public class Miner implements OptionHandler{
-    
+
+    public static ECHOOriginalInterceptor interceptor = new ECHOOriginalInterceptor();
+
     /** Creates a new instance of Miner */
     public Miner() {
     }
@@ -630,8 +637,36 @@ public class Miner implements OptionHandler{
                 totnc = novelClusters.size();
 
                 Cluster[] allClusters = new Cluster[outkm.Clusters.length + totnc];
-                for(int i = 0; i < outkm.Clusters.length; i ++)
+                for(int i = 0; i < outkm.Clusters.length; i ++) {
                     allClusters[i] = outkm.Clusters[i];
+
+                    final int index = i;
+                    final double[] targetCentroid = outkm.Clusters[i].centroid.toDoubleArray();
+
+                    final ClusteredConceptContext context = new ClusteredConceptContext()
+                            .setTargetClusterCentroid(Arrays.copyOfRange(targetCentroid, 0, targetCentroid.length - 1))
+                            .setTargetSamples(Arrays
+                                    .stream(outkm.m_data.getM_Instances())
+                                    .map(o -> (Minstance) o)
+                                    .filter(minstance -> minstance.ClusterId == index)
+                                    .map(minstance -> ((Instance) minstance).toDoubleArray())
+                                    .collect(Collectors.toList()))
+                            .setKnownClustersCentroids(Arrays
+                                    .stream(en)
+                                    .map(classifier -> (ReascCtrl) classifier)
+                                    .map(reascCtrl -> Arrays.asList(reascCtrl.getClusters()))
+                                    .flatMap(Collection::stream)
+                                    .map(c -> c.centroid.toDoubleArray())
+                                    .collect(Collectors.toList()))
+                            .setKnownLabels(Arrays
+                                    .stream(en)
+                                    .map(classifier -> (ReascCtrl) classifier)
+                                    .map(ReascCtrl::getKnownLabels).flatMap(Collection::stream)
+                                    .collect(Collectors.toSet()))
+                            .setDefaultAction(() -> {});
+
+                    interceptor.NOVEL_CLASS_EMERGENCE.with(context).executeOrDefault(() -> {});
+                }
 
                 //append the novel clusters at the end
                 if(novelClusters != null)
@@ -1371,6 +1406,40 @@ public class Miner implements OptionHandler{
 
                     Classifier C = Classifier.forName(classifierName, argv);
                     C.buildClassifier(trainData);
+
+                    for (int i = 0; i < ((ReascCtrl) C).mcClusters.length; ++i) {
+
+                        final int index = i;
+                        final Cluster mcCluster = ((ReascCtrl) C).mcClusters[i];
+
+                        final double[] targetCentroid = mcCluster.centroid.toDoubleArray();
+
+                        final ClusteredConceptContext context = new ClusteredConceptContext()
+                                .setTargetClusterCentroid(Arrays.copyOfRange(targetCentroid, 0, targetCentroid.length - 1))
+                                .setTargetSamples(((ReascCtrl) C).data
+                                        .stream()
+                                        .filter(datapoint -> datapoint.getClusterId() == index)
+                                        .map(datapoint -> datapoint.avector)
+                                        .collect(Collectors.toList()))
+                                .setKnownClustersCentroids(Arrays
+                                        .stream(En)
+                                        .map(classifier -> (ReascCtrl) classifier)
+                                        .map(reascCtrl -> Arrays.asList(reascCtrl.getClusters()))
+                                        .flatMap(Collection::stream)
+                                        .map(c -> c.centroid.toDoubleArray())
+                                        .collect(Collectors.toList()))
+                                .setKnownLabels(Arrays
+                                        .stream(En)
+                                        .map(classifier -> (ReascCtrl) classifier)
+                                        .map(ReascCtrl::getKnownLabels).flatMap(Collection::stream)
+                                        .collect(Collectors.toSet()))
+                                .setDefaultAction(() -> {});
+
+                        interceptor.CLASSIFIER_UPDATE.with(context).executeOrDefault(() -> {});
+                    }
+
+                    ((ReascCtrl) C).data = null;
+
                     String debg = "Classifier ID = " +cid+ " Existing classes = ";
                     for(int i = 0; i < minst.numClasses(); i ++)
                     {
