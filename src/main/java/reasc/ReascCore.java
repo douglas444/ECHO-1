@@ -1,6 +1,8 @@
 package reasc;
 
 import java.util.*;
+
+import mineClass.Miner;
 import org.apache.log4j.*;
 import mineClass.Constants;
 
@@ -46,7 +48,7 @@ public class ReascCore {
     long Tmtrain = 0;   //total training time
     long Tmtest = 0; //total testing time
     
-    Random Generator = new Random(Constants.Seed);
+    Random Generator = Miner.random;
     
     //logger for log4j
     static Logger  logger = Logger.getLogger(ReascCore.class);

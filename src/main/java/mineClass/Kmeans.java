@@ -14,7 +14,7 @@ public class Kmeans {
     public Cluster[] Clusters = null;
     //public int[] ClusterId = null;
     
-    Random Generator = new Random(1234567);    
+    Random Generator = Miner.random;
     boolean Changed = false;
             
     /** Creates a new instance of Kmeans */

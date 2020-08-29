@@ -18,6 +18,7 @@ import change_point_detection.CpdDP;
 public class Miner implements OptionHandler{
 
     public static ECHOOriginalInterceptor interceptor = new ECHOOriginalInterceptor();
+    public static Random random = new Random(0);
 
     /** Creates a new instance of Miner */
     public Miner() {
@@ -1040,7 +1041,7 @@ public class Miner implements OptionHandler{
 
         int numOfLabeledInst = 0;
         int numOfUnlabeledInst = 0;
-        Random rand = new Random(123456);
+        Random rand = Miner.random;
        
         // for debugging purpose only, disable after debugging
         /*

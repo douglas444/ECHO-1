@@ -8,8 +8,7 @@ public class Constants {
    
     public static Logger  logger = Logger.getLogger(Constants.class);
     public static final int NIL = -1;   
-    public static String[] ClsLabel = null;  //Labels of different classes   
-    public static final int Seed = 1234567; //seed for random number generator
+    public static String[] ClsLabel = null;  //Labels of different classes
     public static final int WARMUP = 6;     //how many chunks are used for warm up?
     public static final double OUTTH = 0.7; //Outlier threshold (lower weight means outlier)
     public static final boolean DYNAMICNUMOFCLUSTERS = true;
