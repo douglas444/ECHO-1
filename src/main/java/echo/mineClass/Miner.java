@@ -1,19 +1,19 @@
 /*
  *   Next versions of this project will be documented in root.VersionInfo.java
  */
-package mineClass;
+package echo.mineClass;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import interceptor.ECHOOriginalInterceptor;
-import interceptor.context.ClusteredConceptContext;
-import reasc.ReascCtrl;
+import echo.interceptor.ECHOOriginalInterceptor;
+import echo.interceptor.context.ClusteredConceptContext;
+import echo.reasc.ReascCtrl;
 import weka.core.*;
 import weka.classifiers.Classifier;
 import org.apache.log4j.*;
-import change_point_detection.CpdDP;
+import echo.change_point_detection.CpdDP;
 
 public class Miner implements OptionHandler{
 
@@ -1872,7 +1872,7 @@ public class Miner implements OptionHandler{
         this.ClassifierName = clsName;
       }
      else {
-      this.ClassifierName = "reasc.ReascCtrl";
+      this.ClassifierName = "echo.reasc.ReascCtrl";
     }
     
     String tau = Utils.getOption('U', options);

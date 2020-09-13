@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package mineClass;
+package echo.mineClass;
 
 //Save results per 1K instance
 public class ResultStat{

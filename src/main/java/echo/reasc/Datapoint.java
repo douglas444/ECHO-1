@@ -1,6 +1,6 @@
-package reasc;
+package echo.reasc;
 
-import mineClass.Constants;
+import echo.mineClass.Constants;
 
 public class Datapoint{
     public double[] avector = null; // attribute vector

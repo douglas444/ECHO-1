@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package mineClass;
+package echo.mineClass;
 
 import weka.core.Instance;
 import java.util.ArrayList;

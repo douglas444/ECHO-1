@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package change_point_detection;
+package echo.change_point_detection;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
+
 import org.apache.commons.math.distribution.BetaDistributionImpl;
 /**
 import java.io.BufferedReader;

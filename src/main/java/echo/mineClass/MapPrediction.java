@@ -4,7 +4,7 @@
  */
 
 //saves the predictions of each classifier to an instances
-package mineClass;
+package echo.mineClass;
 
 public class MapPrediction{
     public int Cid = -1;               //classifier id

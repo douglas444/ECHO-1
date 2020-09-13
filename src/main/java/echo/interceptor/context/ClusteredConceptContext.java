@@ -1,4 +1,4 @@
-package interceptor.context;
+package echo.interceptor.context;
 
 import br.com.douglas444.dsframework.interceptor.Context;
 

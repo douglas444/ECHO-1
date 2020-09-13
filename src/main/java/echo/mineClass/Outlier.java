@@ -1,8 +1,7 @@
-package mineClass;
+package echo.mineClass;
 
 import java.util.Arrays;
 import weka.core.Instance;
-import weka.core.Instances;
 
 public class Outlier {
     

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mineClass;
+package echo.mineClass;
 
 import java.util.ArrayList;
 

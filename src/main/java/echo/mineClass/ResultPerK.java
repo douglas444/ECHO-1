@@ -1,7 +1,6 @@
-package mineClass;
+package echo.mineClass;
 
 import java.util.*;
-import java.io.*;
 
 public class ResultPerK{
     

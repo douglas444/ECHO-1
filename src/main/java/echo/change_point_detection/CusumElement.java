@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package change_point_detection;
+package echo.change_point_detection;
 
 import org.apache.commons.math.distribution.BetaDistributionImpl;
 

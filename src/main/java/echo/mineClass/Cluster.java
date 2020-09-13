@@ -1,4 +1,4 @@
-package mineClass;
+package echo.mineClass;
 
 import weka.core.Instance;
 

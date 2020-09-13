@@ -1,4 +1,4 @@
-package mineClass;
+package echo.mineClass;
 
 public class Result implements Comparable{
     

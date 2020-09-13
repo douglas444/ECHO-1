@@ -1,9 +1,9 @@
-package reasc;
+package echo.reasc;
 
 import java.util.*;
 import weka.core.*;
-import mineClass.Constants;
-import mineClass.ConfidenceStats;
+import echo.mineClass.Constants;
+import echo.mineClass.ConfidenceStats;
 
 public class ReascCtrl extends weka.classifiers.Classifier implements OptionHandler {
     
@@ -27,7 +27,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
     /* my added fields for weighted voting */
     
     public Cluster[] Clusters = null;
-    public mineClass.Cluster[] mcClusters = null;
+    public echo.mineClass.Cluster[] mcClusters = null;
     double[] Prior = null;      //prior probabilities of each class
     public boolean[] Dataseen = null;
     Instances Data = null;      //set of instances used to build this model
@@ -329,11 +329,11 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
     return options;
   }
 
-  public mineClass.Cluster[] getClusters()
+  public echo.mineClass.Cluster[] getClusters()
   {
-        //reasc.Cluster[] Clusters = ((reasc.ReascCtrl)en[i]).Clusters;
+        //echo.reasc.Cluster[] Clusters = ((echo.reasc.ReascCtrl)en[i]).Clusters;
         //convert to evodt.Cluster
-        mineClass.Cluster[] clusters = new mineClass.Cluster[this.Clusters.length];
+        echo.mineClass.Cluster[] clusters = new echo.mineClass.Cluster[this.Clusters.length];
         for(int j = 0; j < clusters.length; j ++)
         {
             Instance centroid = new Instance(1,Clusters[j].centroid.avector);
@@ -341,7 +341,7 @@ public class ReascCtrl extends weka.classifiers.Classifier implements OptionHand
             centroid.setDataset(this.Data);
             sum.setDataset(this.Data);
 
-            clusters[j] = new mineClass.Cluster(centroid,j);
+            clusters[j] = new echo.mineClass.Cluster(centroid,j);
             //clusters[j].sum = new Instance(sum);
             if(Clusters[j].frq != null)
                 clusters[j].dist = Clusters[j].frq.clone();

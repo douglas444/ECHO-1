@@ -1,10 +1,10 @@
-package reasc;
+package echo.reasc;
 
 import java.util.*;
 
-import mineClass.Miner;
+import echo.mineClass.Miner;
 import org.apache.log4j.*;
-import mineClass.Constants;
+import echo.mineClass.Constants;
 
 
 public class ReascCore {

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package mineClass;
+package echo.mineClass;
 
 public class MapOPrediction{
     public int Mid = -1;               //Model Id

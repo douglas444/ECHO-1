@@ -1,7 +1,7 @@
-package interceptor;
+package echo.interceptor;
 
 import br.com.douglas444.dsframework.interceptor.ConsumerOrRunnableInterceptor;
-import interceptor.context.ClusteredConceptContext;
+import echo.interceptor.context.ClusteredConceptContext;
 
 public class ECHOOriginalInterceptor {
 
