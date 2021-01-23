@@ -1,3 +1,5 @@
+discontinued
+
 # ECHO
 Efficient Semi-Supervised Adaptive Classification and Novel Class Detection over Data Stream
 
